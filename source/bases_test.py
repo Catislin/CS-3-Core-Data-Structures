@@ -3,7 +3,6 @@
 from bases import decode, encode, convert
 import unittest
 
-
 class BasesDecodeTest(unittest.TestCase):
 
     def test_decode_binary(self):
@@ -82,6 +81,10 @@ class BasesDecodeTest(unittest.TestCase):
         assert decode('101101', 32) == 33588225
         assert decode('101101', 36) == 60514129
 
+    def test_decode_higher_bases(self):
+        assert decode('AB', 17) == 181
+        assert decode('CAB', 32) == 12619
+        assert decode ('C4L', 36) == 15717
 
 class BasesEncodeTest(unittest.TestCase):
 
@@ -180,8 +183,6 @@ class BasesEncodeTest(unittest.TestCase):
         assert encode(9781876, 25) == '101101'
         assert encode(33588225, 32) == '101101'
         assert encode(60514129, 36) == '101101'
-
-
 class BasesConvertTest(unittest.TestCase):
 
     def test_convert_from_binary(self):
@@ -263,7 +264,6 @@ class BasesConvertTest(unittest.TestCase):
         assert convert('1101100101010001', 2, 16) == 'd951'
         assert convert('1110101001100010', 2, 16) == 'ea62'
         assert convert('1111101101110011', 2, 16) == 'fb73'
-
 
 if __name__ == '__main__':
     unittest.main()
