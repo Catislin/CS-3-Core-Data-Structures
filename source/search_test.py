@@ -5,7 +5,7 @@ import unittest
 
 
 class SearchTest(unittest.TestCase):
-    def test_linear_search_with_items_in_list(self):
+    def x_test_linear_search_with_items_in_list(self):
         # linear search can find items regardless of list order
         names = ['Winnie', 'Kojin', 'Brian', 'Nabil', 'Julia', 'Alex', 'Nick']
         # linear search should return the index of each item in the list
@@ -17,7 +17,7 @@ class SearchTest(unittest.TestCase):
         assert linear_search(names, 'Alex') == 5
         assert linear_search(names, 'Nick') == 6
 
-    def test_linear_search_with_items_not_in_list(self):
+    def x_test_linear_search_with_items_not_in_list(self):
         # linear search can find items regardless of list order
         names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
         # linear search should return None for any item not in the list
