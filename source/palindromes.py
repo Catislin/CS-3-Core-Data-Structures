@@ -14,8 +14,8 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
@@ -28,7 +28,6 @@ def is_palindrome_iterative(text):
     # 2 == 4
     # 3 == 3
     text = text.replace(' ', '').lower()
-    # text = re.sub(r'[^\w]','',text)
     l = 0
     r = len(text) - 1
     while l < r:
@@ -45,8 +44,6 @@ def is_palindrome_iterative(text):
         l += 1
         r -= 1
     return True
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
 
 
 def is_palindrome_recursive(text, left=None, right=None):
@@ -57,16 +54,22 @@ def is_palindrome_recursive(text, left=None, right=None):
         left = 0
         right = len(text) - 1
 
-    left += 1
-    right -= 1
+    if left > right:
+        return True
 
-    if left < right:
+    if text[left] == "." or text[left] == "!" or text[left] == "-" or text[left] == "?" or text[left] == "\'" or text[left] == ",":
+        left += 1
+        return is_palindrome_recursive(text, left, right)
+    if text[right] == "." or text[right] == "!" or text[right] == "-" or text[right] == "?" or text[right] == "\'" or text[right] == ",":
+        right -= 1
         return is_palindrome_recursive(text, left, right)
 
     if text[left] != text[right]:
         return False
     else:
-        return True
+        left += 1
+        right -= 1
+        return is_palindrome_recursive(text, left, right)
 
 
     # once implemented, change is_palindrome to call is_palindrome_recursive
