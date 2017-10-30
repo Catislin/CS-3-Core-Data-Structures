@@ -14,8 +14,8 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    # return is_palindrome_iterative(text)
-    return is_palindrome_recursive(text)
+    return is_palindrome_iterative(text)
+    # return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
@@ -28,11 +28,18 @@ def is_palindrome_iterative(text):
     # 2 == 4
     # 3 == 3
     text = text.replace(' ', '').lower()
-    text = re.sub(r'[^\w]','',text)
-    print(text)
+    # text = re.sub(r'[^\w]','',text)
     l = 0
     r = len(text) - 1
     while l < r:
+        # handle punctuation
+        if text[l] == "." or text[l] == "!" or text[l] == "-" or text[l] == "?" or text[l] == "\'" or text[l] == ",":
+            l +=1
+            continue
+        if text[r] == "." or text[r] == "!" or text[r] == "-" or text[r] == "?" or text[r] == "\'" or text[r] == ",":
+            r -=1
+            continue
+
         if text[l] != text[r]:
             return False
         l += 1
