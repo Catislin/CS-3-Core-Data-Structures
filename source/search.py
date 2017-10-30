@@ -54,27 +54,20 @@ def binary_search_recursive(array, item, left=0, right=None):
     if right is None:
         right = len(array) - 1
 
-    mid = (left + right) // 2
-    print(array)
-    print("Left: " + str(left))
-    print("Right: " + str(right))
-    print("mid: " + str(mid))
-
     if left > right:
         return None
 
+    mid = (left + right) // 2
+
     if item > array[mid]:
         left = mid + 1
-        #array = array[left:right]
         return(binary_search_recursive(array, item, left, right))
 
     elif item < array[mid]:
         right = mid - 1
-        #array = array[left:right]
         return(binary_search_recursive(array, item, left, right))
 
     else:
-        print(mid)
         return mid
 
 

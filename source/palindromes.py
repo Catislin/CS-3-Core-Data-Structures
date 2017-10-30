@@ -1,6 +1,7 @@
 #!python
 
 import string
+import re
 # Hint: Use these string constants to ignore capitalization and/or punctuation
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -13,20 +14,54 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
     # TODO: implement the is_palindrome function iteratively here
-    pass
+    # r a c e c a r
+    # 0 1 2 3 4 5 6
+    #
+    # 0 == 6
+    # 1 == 5
+    # 2 == 4
+    # 3 == 3
+    text = text.replace(' ', '').lower()
+    text = re.sub(r'[^\w]','',text)
+    print(text)
+    l = 0
+    r = len(text) - 1
+    while l < r:
+        if text[l] != text[r]:
+            return False
+        l += 1
+        r -= 1
+    return True
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here
-    pass
+    if right == None or left == None:
+        text = text.replace(' ', '').lower()
+        text = re.sub(r'[^\w]','',text)
+        left = 0
+        right = len(text) - 1
+
+    left += 1
+    right -= 1
+
+    if left < right:
+        return is_palindrome_recursive(text, left, right)
+
+    if text[left] != text[right]:
+        return False
+    else:
+        return True
+
+
     # once implemented, change is_palindrome to call is_palindrome_recursive
     # to verify that your iterative implementation passes all tests
 

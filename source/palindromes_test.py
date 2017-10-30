@@ -44,6 +44,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('Race Car') is True
         assert is_palindrome('Race Fast Safe Car') is True
 
+
     def test_is_palindrome_with_whitespace_and_punctuation(self):
         # palindromes with whitespace and punctuation
         assert is_palindrome('B-B') is True
@@ -81,7 +82,6 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('ABCDDCBZ') is False
         assert is_palindrome('AAAAZAAA') is False
         assert is_palindrome('AAAAAAAZ') is False
-
 
 if __name__ == '__main__':
     unittest.main()
