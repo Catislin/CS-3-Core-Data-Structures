@@ -1,23 +1,48 @@
 #!python
 
-def contains(text, pattern):
+def contains(text, pattern, start=None):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement contains here (iteratively and/or recursively)
     # iterative:
+    # if pattern == '':
+    #     return True
+    # text_index = 0
+    # while text_index != len(text):
+    #     for i in range(len(pattern)):
+    #         if text_index + i < len(text):
+    #             if text[text_index + i] != pattern[i]:
+    #                 break
+    #             if i == len(pattern) - 1:
+    #                 return True
+    #     text_index += 1
+    # return False
+
     if pattern == '':
         return True
-    text_index = 0
-    while text_index != len(text):
-        for i in range(len(pattern)):
-            if text_index + i < len(text):
-                if text[text_index + i] != pattern[i]:
-                    break
-                if i == len(pattern) - 1:
-                    return True
-        text_index += 1
-    return False
+    # base case
+    if start == len(text) - 1 :
+        return False
+
+    if start == None:
+        start = 0
+
+    inPattern = True
+    for i in range(len(pattern)):
+        if start + i < len(text):
+            if text[start + i] != pattern[i]:
+                inPattern = False
+
+    start += 1
+
+    if inPattern:
+        return inPattern
+    else:
+        return contains(text, pattern, start)
+
+
+
 
 
 def find_index(text, pattern):
