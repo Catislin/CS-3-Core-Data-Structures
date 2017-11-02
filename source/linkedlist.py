@@ -78,21 +78,42 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+        node = self.head
+        for i in range(index):
+            node = node.next
+        return node.data
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) if append/prepend (add to 0 or end)
+        Worst case running time: O(n - 1) -> O(n) if adding to close to end
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
+        if index == 0:
+            self.prepend(item)
+        elif index == self.size:
+            self.append(item)
+        else:
+            self.size += 1
+            new_node = Node(item)
+            current = self.head
+            prev = self.head
+            for i in range(index - 1):
+                prev = current
+                current = current.next
+            new_node.next = current
+            prev.next = new_node
+        print("size:")
+        print(self.size)
+
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         Best and worst case running time: ??? under what conditions? [TODO]"""
+        self.size += 1
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -105,9 +126,11 @@ class LinkedList(object):
         # Update tail to new node regardless
         self.tail = new_node
 
+
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         Best and worst case running time: ??? under what conditions? [TODO]"""
+        self.size += 1
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -169,6 +192,7 @@ class LinkedList(object):
                 node = node.next
         # Check if we found the given item or we never did and reached the tail
         if found:
+            self.size -= 1
             # Check if we found a node in the middle of this linked list
             if node is not self.head and node is not self.tail:
                 # Update the previous node to skip around the found node

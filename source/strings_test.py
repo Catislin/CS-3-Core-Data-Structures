@@ -28,7 +28,7 @@ class StringsTest(unittest.TestCase):
         assert contains('abc', 'abz') is False  # first 2 letters, but not last
         # TODO: Write more negative test cases with assert is False statements
         # ...
-    '''
+
     def test_contains_with_complex_patterns(self):
         # Difficult test cases (examples) with complex patterns
         assert contains('ababc', 'ab') is True  # multiple occurrences
@@ -77,6 +77,7 @@ class StringsTest(unittest.TestCase):
         assert find_index('abcabcdabcde', 'abcd') == 3  # multiple occurrences, overlapping prefix
         assert find_index('abra cadabra', 'abra') == 0  # multiple occurrences
         assert find_index('abra cadabra', 'adab') == 6  # overlapping prefix
+        assert find_index('aaaaaaab', 'aaaab') == 3
         # TODO: Write more test cases that check complex patterns or edge cases
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
@@ -116,10 +117,11 @@ class StringsTest(unittest.TestCase):
         assert find_all_indexes('abcabcdabcde', 'abcd') == [3, 7]  # multiple occurrences, overlapping prefix
         assert find_all_indexes('abra cadabra', 'abra') == [0, 8]  # multiple occurrences
         assert find_all_indexes('abra cadabra', 'adab') == [6]  # overlapping prefix
+        assert find_all_indexes('aaaaaaa', 'aaa') == [0,1,2,3,4]
         # TODO: Write more test cases that check complex patterns or edge cases
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
-    '''
+
 
 if __name__ == '__main__':
     unittest.main()
