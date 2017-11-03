@@ -39,7 +39,8 @@ class LinkedQueue(LinkedList):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) because we just have to reassign the head pointer
+        variable, which is constant time  """
         if self.head:
             value_to_deQ = self.head.data
             self.head = self.head.next
