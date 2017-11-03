@@ -57,18 +57,19 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        # Node counter initialized to zero
-        node_count = 0
-        # Start at the head node
-        node = self.head
-        # Loop until the node is None, which is one node too far past the tail
-        while node is not None:
-            # Count one for this node
-            node_count += 1
-            # Skip to the next node
-            node = node.next
-        # Now node_count contains the number of nodes
-        return node_count
+        return this.size
+        # # Node counter initialized to zero
+        # node_count = 0
+        # # Start at the head node
+        # node = self.head
+        # # Loop until the node is None, which is one node too far past the tail
+        # while node is not None:
+        #     # Count one for this node
+        #     node_count += 1
+        #     # Skip to the next node
+        #     node = node.next
+        # # Now node_count contains the number of nodes
+        # return node_count
 
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
@@ -91,21 +92,21 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
-        if index == 0:
-            self.prepend(item)
+        if index == 0:              # to add to the beginning or end of the list,
+            self.prepend(item)      # we can use the prepend and append methods
         elif index == self.size:
             self.append(item)
         else:
-            self.size += 1
+            self.size += 1          # increment variable that keeps track of the list's size
             new_node = Node(item)
-            current = self.head
-            prev = self.head
-            for i in range(index - 1):
+            current = self.head     # start at the head of the list and keep track of
+            prev = self.head        # both the current and previous node as we iterate
+            for i in range(index - 1):     # loop until just before the index we want to insert at
                 prev = current
                 current = current.next
-            new_node.next = current
-            prev.next = new_node
+            new_node.next = current        # once we have reach the index, assign the new node to
+            prev.next = new_node           # point to just after that index, and assign the node
+                                           # that came before it to point to the new node
 
 
     def append(self, item):
