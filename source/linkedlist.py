@@ -87,7 +87,7 @@ class LinkedList(object):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
         Best case running time: O(1) if append/prepend (add to 0 or end)
-        Worst case running time: O(n - 1) -> O(n) if adding to close to end
+        Worst case running time: O(n - 1) -> O(n) if adding to close to end """
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
@@ -106,8 +106,6 @@ class LinkedList(object):
                 current = current.next
             new_node.next = current
             prev.next = new_node
-        print("size:")
-        print(self.size)
 
 
     def append(self, item):
