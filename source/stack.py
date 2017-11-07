@@ -30,8 +30,8 @@ class LinkedStack(object):
         Running time: O(1) because we only have to reassign the head pointer
         which does not depend on the number of items in the list """
         new_node = Node(item)
-        self.list.size += 1
-        if self.list.head is None:
+        self.list.size += 1               # increment size
+        if self.list.head is None:        # case where list is empty
             self.list.head = new_node
             return
         new_node.next = self.list.head
@@ -55,6 +55,7 @@ class LinkedStack(object):
 
         if self.length == 1:                    # case where list has one item (only the head)
             self.list.head = None
+            self.list.tail = None
         else:
             new_head = self.list.head.next      # if the list has more than one item, assign the
             self.list.head = new_head           # new head to be the second item in the list
@@ -87,19 +88,15 @@ class ArrayStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(n) because we have to copy over every item in the
-        existing list """
-        new_list = list()             # initialize a new list
-        new_list.append(item)         # add the new item to the beginning of it
-        for old_item in self.list:    # copy over every item in the current list
-            new_list.append(old_item) # and add it to the end of the new list
-        self.list = new_list          # set the ArrayStack's list to be the new list
+        Running time: O(n) worst case because we have to copy over every item in the
+        existing list if the list is full"""
+        self.list.append(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         if not self.is_empty():
-            return self.list[0]
+            return self.list[self.length() - 1]
 
     def pop(self):
         """Remove and return the item on the top of this stack,
@@ -110,9 +107,9 @@ class ArrayStack(object):
             raise ValueError("Cannot pop from empty stack");
             return
         new_list = list()              # initialize a new list
-        value_to_pop = self.list[0]    # store the first item in the ArrayStack for later
-        for item in self.list[1::]:    # go through every item in the existing list
-            new_list.append(item)      # starting w/ the 2nd element, add to new list
+        value_to_pop = self.list[self.length() - 1 ]
+        for item in self.list[0 : self.length() - 1]:
+            new_list.append(item)
         self.list = new_list           # reassign the ArrayStack's list
         return value_to_pop
 
@@ -120,5 +117,5 @@ class ArrayStack(object):
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
-Stack = LinkedStack
-# Stack = ArrayStack
+#Stack = LinkedStack
+Stack = ArrayStack
