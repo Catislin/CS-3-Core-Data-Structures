@@ -95,6 +95,8 @@ class HashTable(object):
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
+        print("key: " + key)
+        print("bucket index " + str(index))
         # Find the entry with the given key in that bucket, if one exists
         entry = bucket.find(lambda k: k == key)
         if entry is not None:  # Found
@@ -172,8 +174,11 @@ class HashTable(object):
             empty_ll = LinkedList()
             new_buckets_list.append(empty_ll)
 
+        print("new size: " + str(len(new_buckets_list)))
+
         # reallocate buckets list
         self.buckets = new_buckets_list
+        # start counting items over again from 0
         self.size = 0
 
         # Insert each key-value entry into the new list of buckets,
@@ -191,6 +196,7 @@ def test_hash_table():
     ht.set('I', 1)
     print('set(I, 1): ' + str(ht))
     ht.set('V', 5)
+    print('get(I): ' + str(ht.get('I')))
     print('set(V, 5): ' + str(ht))
     print('size: ' + str(ht.size))
     print('length: ' + str(ht.length()))
@@ -206,7 +212,6 @@ def test_hash_table():
     print('load_factor: ' + str(ht.load_factor()))
 
     print('Getting entries:')
-    print(str(ht))
     print('get(I): ' + str(ht.get('I')))
     print('get(V): ' + str(ht.get('V')))
     print('get(X): ' + str(ht.get('X')))

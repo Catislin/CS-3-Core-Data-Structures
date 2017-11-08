@@ -20,30 +20,22 @@ def read_in_route_costs(filename):
 def find_cost(phone_number, route_costs):
     """Takes in a phone number in string format and a list containing route costs
     and finds the cost of calling the phone number from that list"""
-    for route_list in route_costs:
-        route = route_list[0]
-        route_index = 0
-        #longest_match_index = -1
-        
+    longest_match = 0
+    longest_match_index = -1
+    for index, route_cost_pair in enumerate(route_costs): # go through each (route, cost) pair
+        route = route_cost_pair[0]
+        route_length = len(route)
+        if route == phone_number[:route_length] and route_length > longest_match:
+            longest_match = route_length
+            longest_match_index = index
 
-# def contains(text, pattern, start=None):
-#     """Return a boolean indicating whether pattern occurs in text."""
-#     assert isinstance(text, str), 'text is not a string: {}'.format(text)
-#     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-#     # TODO: Implement contains here (iteratively and/or recursively)
-#     # iterative:
-#     if pattern == '':
-#         return True
-#     text_index = 0
-#     while text_index != len(text):
-#         for i in range(len(pattern)):
-#             if text_index + i < len(text):
-#                 if text[text_index + i] != pattern[i]:
-#                     break
-#                 if i == len(pattern) - 1:
-#                     return True
-#         text_index += 1
-#     return False
+    if longest_match == 0 or longest_match_index == -1:
+        print("route not found!")
+
+    return route_costs[longest_match_index][1]
+
+
+
 
 
 
@@ -51,5 +43,7 @@ if __name__ == '__main__':
     #print(read_in_phone_numbers('phone-numbers-10.txt'))
     # print(read_in_route_costs('route-costs-10.txt'))
     routes = read_in_route_costs('route-costs-106000.txt')
-    phone_number = '+15124156620'
-    find_cost(phone_number, routes)
+    phone_number = '+6498418344'
+    print(find_cost(phone_number, routes))
+    phone_number = '+8613870265'
+    print(find_cost(phone_number, routes))
