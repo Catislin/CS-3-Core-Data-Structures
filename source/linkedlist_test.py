@@ -105,7 +105,7 @@ class LinkedListTest(unittest.TestCase):
             ll.insert_at_index(5, 'X')  # index too high
         with self.assertRaises(ValueError):
             ll.insert_at_index(-1, 'Y')  # index too low
-    '''
+
     def test_append(self):
         ll = LinkedList()
         ll.append('A')
@@ -176,7 +176,7 @@ class LinkedListTest(unittest.TestCase):
         assert ll.size == 0
         with self.assertRaises(ValueError):
             ll.delete('X')  # item not in list
-    '''
+    
 
 if __name__ == '__main__':
     unittest.main()

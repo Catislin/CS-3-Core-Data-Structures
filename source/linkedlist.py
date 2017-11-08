@@ -57,7 +57,7 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        return this.size
+        return self.size
         # # Node counter initialized to zero
         # node_count = 0
         # # Start at the head node
@@ -107,8 +107,6 @@ class LinkedList(object):
             new_node.next = current        # once we have reach the index, assign the new node to
             prev.next = new_node           # point to just after that index, and assign the node
                                            # that came before it to point to the new node
-
-
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         Best and worst case running time: ??? under what conditions? [TODO]"""
@@ -167,7 +165,13 @@ class LinkedList(object):
         Worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
-        pass
+        current = self.head
+        while current:
+            if current.data == old_item:
+                current.data = new_item
+                return
+            current = current.next
+        raise ValueError("Cannot replace item not already in list!")
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
