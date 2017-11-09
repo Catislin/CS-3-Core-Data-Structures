@@ -38,7 +38,6 @@ def find_cost(phone_number, route_costs):
 
 
 
-
 if __name__ == '__main__':
     #print(read_in_phone_numbers('phone-numbers-10.txt'))
     # print(read_in_route_costs('route-costs-10.txt'))
