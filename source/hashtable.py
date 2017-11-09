@@ -48,13 +48,6 @@ class HashTable(object):
                 all_values.append(value)
         return all_values
 
-    def pairs(self):
-        all_pairs = []
-        for bucket in self.buckets:
-            for key, value in bucket.items():
-                all_pairs.append((key, value))
-        return all_pairs
-
     def items(self):
         """Return a list of all entries (key-value pairs) in this hash table.
         Best and worst case running time: ??? under what conditions? [TODO]"""
@@ -157,8 +150,13 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: ??? under what conditions? [TODO]
-        Best and worst case space usage: ??? what uses this memory? [TODO]"""
+        Best and worst case running time: O(n) since we have to loop through
+        each key-value pair in the hashtable and add it to a new list
+        + O(2n) since new_size = 2n and we have to loop new_size times to
+        allocate new buckets + O(n) since we have to re-hash every item again
+        = O(n)
+        Best and worst case space usage: O(3n) since we allocate 2n new buckets
+        as well as holding a temporary list of n elements"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
@@ -167,7 +165,7 @@ class HashTable(object):
             new_size = len(self.buckets) / 2  # Half size
 
         # Get a list to temporarily hold all current key-value entries
-        all_pairs = self.pairs()
+        all_pairs = self.items()
 
         # Create a new list of new_size total empty linked list buckets
         new_buckets_list = []
