@@ -220,6 +220,13 @@ class LinkedList(object):
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
 
+    def iterate(self):
+        """Iterate from the head of the list"""
+        current = self.head
+        while current:
+            yield current.data
+            current = current.next
+
 
 def test_linked_list():
     ll = LinkedList()
