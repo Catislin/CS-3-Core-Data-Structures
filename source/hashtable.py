@@ -129,7 +129,6 @@ class HashTable(object):
         if self.load_factor() > .75:
             self._resize()  # If so, automatically resize to reduce the load factor
 
-
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
         Best case running time: ??? under what conditions? [TODO]
@@ -151,9 +150,9 @@ class HashTable(object):
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
         Best and worst case running time: O(n) since we have to loop through
-        each key-value pair in the hashtable and add it to a new list
-        + O(2n) since new_size = 2n and we have to loop new_size times to
-        allocate new buckets + O(n) since we have to re-hash every item again
+        each key-value pair in the hashtable using the items() method and add
+        it to a new list + O(2n) since new_size = 2n and we have to loop new_size
+        times to allocate new buckets + O(n) since we have to re-hash each item again
         = O(n)
         Best and worst case space usage: O(3n) since we allocate 2n new buckets
         as well as holding a temporary list of n elements"""
@@ -168,24 +167,20 @@ class HashTable(object):
         all_pairs = self.items()
 
         # Create a new list of new_size total empty linked list buckets
-        new_buckets_list = []
-        for _ in range(new_size):
-            empty_ll = LinkedList()
-            new_buckets_list.append(empty_ll)
+        new_buckets_list = [LinkedList() for _ in range(new_size)]
 
-        print("new size: " + str(len(new_buckets_list)))
-
-        # reallocate buckets list
+        # reallocate buckets list (changes hash)
         self.buckets = new_buckets_list
         # start counting items over again from 0
         self.size = 0
 
         # Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
-        for pair in all_pairs:
-            key = pair[0]
-            self.set(pair[0], pair[1])
-
+        # for pair in all_pairs:
+        #     key = pair[0]
+        #     value = pair[1]
+        for key, value in all_pairs:
+            self.set(key, value)
 
 def test_hash_table():
     ht = HashTable(4)
