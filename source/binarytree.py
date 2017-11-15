@@ -33,7 +33,7 @@ class BinaryTreeNode(object):
         if self.is_leaf:
             return 0
         if self.right:
-            right_height = self.right.height()
+            right_height = self.right.height() # use ternary
         if self.left:
             left_height = self.left.height()
         return max(left_height, right_height) + 1
@@ -114,7 +114,9 @@ class BinarySearchTree(object):
         self.size += 1
 
     def delete(self, item):
-        pass
+        found = self.search(item)
+        if found:
+            parent = self._find_parent_node(item)
 
     def _find_node(self, item):
         """Return the node containing the given item in this binary search tree,
