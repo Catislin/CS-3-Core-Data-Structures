@@ -1,10 +1,6 @@
 #!python
 
-<<<<<<< HEAD
 from binarytree import BinarySearchTree, BinaryTreeNode
-=======
-from binarysearchtree import BinarySearchTree, BinaryTreeNode
->>>>>>> f0fa83432126a26df19a37b922cc61d27969f586
 import unittest
 
 
@@ -160,8 +156,6 @@ class BinarySearchTreeTest(unittest.TestCase):
 
     # This space intentionally left blank (please do not delete this comment)
 
-<<<<<<< HEAD
-=======
     def test_items_in_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
         items = ['B', 'A', 'C']
@@ -217,8 +211,6 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree = BinarySearchTree(items)
         # Ensure the level-order traversal of tree items is ordered correctly
         assert tree.items_level_order() == [4, 2, 6, 1, 3, 5, 7]
-
->>>>>>> f0fa83432126a26df19a37b922cc61d27969f586
 
 if __name__ == '__main__':
     unittest.main()
