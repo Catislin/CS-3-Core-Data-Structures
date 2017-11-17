@@ -28,9 +28,9 @@ class BinaryTreeNode(object):
         downward path from this node to a descendant leaf node).
         Best case running time: O(1) if tree is empty
         Worst case running time: O(n) if the tree is on one long branch"""
-        right_height, left_height = 0
+        right_height, left_height = 0, 0
         # base case
-        if self.is_leaf:
+        if self.is_leaf():
             return 0
         if self.right:
             right_height = self.right.height() # use ternary
@@ -64,6 +64,9 @@ class BinarySearchTree(object):
         # Check if root node has a value and if so calculate its height
         if self.root:
             return self.root.height()
+        else:
+            return 0
+
 
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
@@ -113,10 +116,74 @@ class BinarySearchTree(object):
         # Increase the tree size
         self.size += 1
 
+    # swaps two nodes
+    def swap(self, a, b):
+        # swap data
+        a_data = a.data
+        b_data = b.data
+        a.data = b_data
+        b.data = a_data
+        # swap child pointers
+        a_left = a.left
+        a_right = a.right
+        a.left = b.left
+        a.right = b.right
+        b.left = a_left
+        b.right = a_right
+
+    def _find_successor(self, node):
+        # find the leftmost node in the right subtree
+        if node.right:
+            current = node.right
+            while current.left:
+                current = current.left
+            return current
+
+    def _find_predecessor(self, node):
+        if node.left:
+            current = node.left
+            while current.right:
+                current = current.right
+            return current.right
+
     def delete(self, item):
-        found = self.search(item)
-        if found:
+        found = self._find_node_recursive(item)
+        if found is not None:    # only attempt to delete if the element is present
             parent = self._find_parent_node(item)
+
+            # Case 1: node to be removed has no children
+            if not found.left and not found.right:
+                if self.root is found:
+                    self.root = None
+                else:
+                    if parent.right is found:
+                        parent.right = None
+                    elif parent.left is found:
+                        parent.left = None
+            # Case 2: node to be removed has one child
+            if found.right and not found.left:       # node to remove has only right child
+                if found is self.root:               # node to remove is root
+                    self.root = found.right
+                else:
+                    if parent.right is found:        # node to remove is right child
+                        parent.right = found.right
+                    if parent.left is found:         # node to remove is left child
+                        parent.left = found.right
+            if found.left and not found.right:       # node to remove has only left child
+                if found is self.root:               # node to remove is root
+                    self.root = found.left
+                else:
+                    if parent.right is found:        # node to remove is right child
+                        parent.right = found.left
+                    if parent.left is found:         # node to remove is left child
+                        parent.left = found.left
+
+            # Case 3: node to be removed has three children
+            # First find the successor (or predecessor) of the this node.
+            # Delete the successor (or predecessor) from the tree.
+            # Replace the node to be deleted with the successor (or predecessor)
+
+
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,

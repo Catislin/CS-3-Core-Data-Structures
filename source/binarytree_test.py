@@ -80,6 +80,12 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.size == 3
         assert tree.is_empty() is False
 
+    def test_height(self):
+        tree = BinarySearchTree([2, 1, 3])
+        assert tree.height() == 1
+        tree.insert(4)
+        assert tree.height() == 2
+
     def test_size(self):
         tree = BinarySearchTree()
         assert tree.size == 0
@@ -89,6 +95,14 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.size == 2
         tree.insert('C')
         assert tree.size == 3
+
+    def test_delete(self):
+        tree = BinarySearchTree([2, 4])
+        assert tree.height() == 1
+        tree.delete(4)
+        assert tree.height() == 0
+        tree.delete(2)
+        assert tree.height() == 0
 
     def test_search_with_3_items(self):
         # Create a complete binary search tree of 3 items in level-order
