@@ -57,6 +57,13 @@ class BinarySearchTree(object):
         """Return True if this binary search tree is empty (has no nodes)."""
         return self.root is None
 
+
+    def items(self):
+        """Returns a list of all items in the tree, in-order"""
+        items = []
+        self._traverse_in_order_recursive(self.root, items.append)
+        return items
+
     def height(self):
         """Return the height of this tree (the number of edges on the longest
         downward path from this tree's root node to a descendant leaf node).
@@ -67,6 +74,9 @@ class BinarySearchTree(object):
         else:
             return 0
 
+    def length(self):
+        """Returns the number of items in the tree"""
+        return self.size
 
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
@@ -76,6 +86,10 @@ class BinarySearchTree(object):
         node = self._find_node(item)
         # Return True if a node was found, or False
         return node is not None
+
+
+    def find(self, quality):
+        
 
     def search(self, item):
         """Return an item in this binary search tree matching the given item,
@@ -89,7 +103,6 @@ class BinarySearchTree(object):
             return node.data
         else:
             return None
-
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.

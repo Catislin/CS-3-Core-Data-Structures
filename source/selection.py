@@ -2,19 +2,18 @@
 def selection_sort(to_sort):
     min_index = 0
     # go through each element in the list
-    for i in range(len(to_sort)):
+    for i, item in enumerate(to_sort):
+        # reset the minimum
+        min_so_far = item
         # go through the part that hasn't been sorted yet
-        min_so_far = to_sort[i]
-        for j in range(i, len(to_sort)):
+        for j in range(i + 1, len(to_sort)):
             # find the min element in the unsorted part of the list
-            if list_to_sort[j] < min_so_far:
+            if to_sort[j] < min_so_far:
                 min_so_far = to_sort[j]
                 min_index = j
         # swap the min element found and the current element of
         # the unsorted list
-        temp = to_sort[i]
-        to_sort[i] = min_so_far
-        to_sort[min_index] = temp
+        to_sort[i], to_sort[min_index] = min_so_far, item
 
 def bubble_sort(to_sort):
     # we want to iterate until the list is sorted
@@ -36,22 +35,31 @@ def bubble_sort(to_sort):
 def insertion_sort(to_sort):
     # iterate through each element
     for i, item in enumerate(to_sort):
-        # store the current element
-        current_item = to_sort[i]
         # find the index the current item belongs at by looping back through
-        for j in range(i, 0, -1):
+        for j in range(i, -1, -1):
             # if the element to the left is greater than the current element,
             # then swap the current element with that one (move it left)
-            if to_sort[j] > current_item:
+            if to_sort[j] > item:
                 temp = to_sort[j]
-                to_sort[j] = current_item
+                to_sort[j] = item
                 to_sort[j + 1] = temp
 
 
 if __name__ == '__main__':
     numbers = [4, 8, 9, 10, -72, 21, 33, 99, 33]
+    letters = ['a', 'p', 'z', 'c', 'g', 'j', 'j', 'b', 'e']
+    print("Insertion Sort")
     insertion_sort(numbers)
     print(numbers)
-    letters = ['a', 'p', 'z', 'c', 'g', 'j', 'j', 'e']
     insertion_sort(letters)
+    print(letters)
+    print("Bubble Sort")
+    bubble_sort(numbers)
+    print(numbers)
+    bubble_sort(letters)
+    print(letters)
+    print("Selection Sort")
+    selection_sort(numbers)
+    print(numbers)
+    selection_sort(letters)
     print(letters)
