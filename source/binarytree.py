@@ -57,7 +57,6 @@ class BinarySearchTree(object):
         """Return True if this binary search tree is empty (has no nodes)."""
         return self.root is None
 
-
     def items(self):
         """Returns a list of all items in the tree, in-order"""
         items = []
@@ -80,16 +79,12 @@ class BinarySearchTree(object):
 
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
-        TODO: Best case running time: ??? under what conditions?
+        TODO: Best case running time: ??? under what \?
         TODO: Worst case running time: ??? under what conditions?"""
         # Find a node with the given item, if any
         node = self._find_node(item)
         # Return True if a node was found, or False
         return node is not None
-
-
-    def find(self, quality):
-        
 
     def search(self, item):
         """Return an item in this binary search tree matching the given item,
@@ -145,22 +140,35 @@ class BinarySearchTree(object):
         b.right = a_right
 
     def _find_successor(self, node):
-        # find the leftmost node in the right subtree
+        # if the node has a right child, then:
+        # find the leftmost (that is, the smallest) node in the right subtree
         if node.right:
             current = node.right
             while current.left:
                 current = current.left
             return current
 
-    def _find_predecessor(self, node):
-        if node.left:
-            current = node.left
-            while current.right:
+        # otherwise, if the node has no right child
+        # then start from the root and search for the largest node that comes
+        # before it in the tree
+        current = self.root
+        succ = None
+        while current:
+            if node.data > current.data:
                 current = current.right
-            return current.right
+            elif node.data < current.data:
+                succ = current
+                current = current.left
+            else:
+                break
+        return succ
 
-    def delete(self, item):
-        found = self._find_node_recursive(item)
+    def delete(self, item, root=None):
+        if not root:
+            found = self._find_node_recursive(item)
+        else:
+            found = self._find_node_recursive(item, root)
+
         if found is not None:    # only attempt to delete if the element is present
             parent = self._find_parent_node(item)
 
@@ -192,11 +200,17 @@ class BinarySearchTree(object):
                         parent.left = found.left
 
             # Case 3: node to be removed has three children
-            # First find the successor (or predecessor) of the this node.
-            # Delete the successor (or predecessor) from the tree.
+            # First find the successor of the this node.
+            # Delete the successor from the tree.
             # Replace the node to be deleted with the successor (or predecessor)
-
-
+            if found.left and found.right:
+                succ = self._find_successor(found)
+                print(succ)
+                found.data = succ.data
+                if succ.data > found.data:
+                    self.delete(found.data, found.right)
+                else:
+                    self.delete(found.data, found.left)
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -413,7 +427,6 @@ class BinarySearchTree(object):
             # Enqueue this node's right child, if it exists
             if node.right:
                 queue.enqueue(node.right)
-
 
 def test_binary_search_tree():
     # Create a complete binary search tree of 3, 7, or 15 items in level-order

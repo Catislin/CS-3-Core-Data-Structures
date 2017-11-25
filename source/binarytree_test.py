@@ -96,6 +96,12 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree.insert('C')
         assert tree.size == 3
 
+    def test_find_successor(self):
+        items = [18, 1, 53, 2, 49, 29, 98, 79, 63, 59, 76]
+        tree = BinarySearchTree(items)
+        node = tree._find_node_recursive(79)
+        assert tree._find_successor(node).data == 98
+
     def test_delete(self):
         tree = BinarySearchTree([2, 4])
         assert tree.height() == 1
@@ -103,6 +109,11 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.height() == 0
         tree.delete(2)
         assert tree.height() == 0
+        items = [18, 1, 53, 2, 49, 29, 98, 79, 63, 59, 76]
+        tree = BinarySearchTree(items)
+        tree.delete(63)
+        assert tree.search(63) is None
+        
 
     def test_search_with_3_items(self):
         # Create a complete binary search tree of 3 items in level-order

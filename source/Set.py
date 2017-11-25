@@ -87,6 +87,8 @@ class Set(object):
         return intersection_set
 
     def difference(self, other):
+        """ Given two Sets, return a new Set containing only those elements that are in the first
+        but not the second """
         diff_set = Set()
 
         for bucket in self.buckets:
