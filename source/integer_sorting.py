@@ -2,9 +2,12 @@
 def count_sort(integers):
     number_range = max(integers) #TODO: deal w/ range
     counts = [0 for i in range(number_range + 1)]
+
     for integer in integers:
         counts[integer] += 1
     return_list = []
+    
+    # build the final list
     for index, item in enumerate(counts):
         if item != 0:
             for i in range(item):
@@ -24,8 +27,6 @@ def get_max_digits(numbers, base):
         if digit_count > max_digits:
             max_digits = digit_count
     return max_digits
-
-
 
 def radix_sort_buckets(integers, base):
     # create a bucket for each digit place

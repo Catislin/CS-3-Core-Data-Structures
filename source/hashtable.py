@@ -123,7 +123,7 @@ class HashTable(object):
             # only increment size if we are adding a new element, not updating
             self.size += 1
         # Insert the new key-value entry into the bucket in either case
-        bucket.append((key, value))
+        bucket.insert((key, value))
 
         # Check if the load factor exceeds a threshold such as 0.75
         if self.load_factor() > .75:

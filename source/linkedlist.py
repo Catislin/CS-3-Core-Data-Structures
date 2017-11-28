@@ -107,6 +107,10 @@ class LinkedList(object):
             new_node.next = current        # once we have reach the index, assign the new node to
             prev.next = new_node           # point to just after that index, and assign the node
                                            # that came before it to point to the new node
+
+    def insert(self, item):
+        self.append(item)
+
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         Best and worst case running time: ??? under what conditions? [TODO]"""

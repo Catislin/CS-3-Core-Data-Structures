@@ -170,17 +170,21 @@ class BinarySearchTree(object):
             found = self._find_node_recursive(item, root)
 
         if found is not None:    # only attempt to delete if the element is present
-            parent = self._find_parent_node(item)
+            if not root:
+                parent = self._find_parent_node(item)
+            else:
+                parent = self._find_parent_node(item, root)
 
             # Case 1: node to be removed has no children
             if not found.left and not found.right:
-                if self.root is found:
-                    self.root = None
+                if self.root is found:     # case where we delete the only element
+                    self.root = None       # in the tree
                 else:
                     if parent.right is found:
                         parent.right = None
                     elif parent.left is found:
                         parent.left = None
+
             # Case 2: node to be removed has one child
             if found.right and not found.left:       # node to remove has only right child
                 if found is self.root:               # node to remove is root
@@ -199,26 +203,29 @@ class BinarySearchTree(object):
                     if parent.left is found:         # node to remove is left child
                         parent.left = found.left
 
-            # Case 3: node to be removed has three children
+            # Case 3: node to be removed has two children
             # First find the successor of the this node.
             # Delete the successor from the tree.
             # Replace the node to be deleted with the successor (or predecessor)
             if found.left and found.right:
+                # TODO: deal with the case where we delete the root
                 succ = self._find_successor(found)
-                print(succ)
+                print("deleting: " + str(item))
+                succ_data = succ.data
+                print("succ: " + str(succ_data))
                 found.data = succ.data
-                if succ.data > found.data:
-                    self.delete(found.data, found.right)
+                if succ_data < item:
+                    self.delete(succ_data, found.left)
                 else:
-                    self.delete(found.data, found.left)
+                    self.delete(succ_data, found.right)
 
-    def _find_node_iterative(self, item):
+    def _find_node_iterative(self, item, node=None):
         """Return the node containing the given item in this binary search tree,
         or None if the given item is not found.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
-        # Start with the root node
-        node = self.root
+        if node is None:
+            node = self.root
         # Loop until we descend past the closest leaf node
         while node is not None:
             # Check if the given item matches the node's data
@@ -256,18 +263,25 @@ class BinarySearchTree(object):
         else:
             return None
 
-    def _find_parent_node(self, item):
-        return self._find_parent_node_iterative(item)
+    def _find_parent_node(self, item, node):
+        if node is None:
+            return self._find_parent_node_iterative(item)
+        else:
+            return self._find_parent_node_iterative(item, node)
 
-    def _find_parent_node_iterative(self, item):
+
+    def _find_parent_node_iterative(self, item, node=None):
         """Return the parent node of the node containing the given item
         (or the parent node of where the given item would be if inserted)
         in this tree, or None if this tree is empty or has only a root node.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
         # Start with the root node and keep track of its parent
-        node = self.root
-        parent = None
+        if node is None:
+            node = self.root
+            parent = None
+        else:
+            parent = node
         # Loop until we descend past the closest leaf node
         while node is not None:
             # Check if the given item matches the node's data
@@ -306,6 +320,20 @@ class BinarySearchTree(object):
             return self._find_parent_node_recursive(item, parent=parent.left)
 
     # This space intentionally left blank (please do not delete this comment)
+
+    def find(self, quality, node=None):
+        if not node:
+            node = self.root
+        if not self.root:
+            return
+        if node.left:
+            self.find(quality, node.left)
+
+        if quality(node.data):
+            return node.data
+
+        if node.right:
+            self.find(quality, node.right)
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
